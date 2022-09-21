@@ -6,6 +6,7 @@ use App\Models\Student;
 use App\Http\Requests\StoreStudentRequest;
 use App\Http\Requests\UpdateStudentRequest;
 use Dflydev\DotAccessData\Data;
+use GuzzleHttp\RetryMiddleware;
 
 class StudentController extends Controller
 {
@@ -27,8 +28,10 @@ class StudentController extends Controller
      */
     public function create()
     {
-        return view('pages.form');
+        $student = new Student();
+        return view('pages.form',['student' => $student]);
     }
+    
 
     /**
      * Store a newly created resource in storage.
@@ -36,12 +39,13 @@ class StudentController extends Controller
      * @param  \App\Http\Requests\StoreStudentRequest  $request
      * @return \Illuminate\Http\Response
      */
+
     public function store(StoreStudentRequest $request)
     {
         //dd($request->all());
         $data = $request->all();
         Student::create($data);
-        return redirect('student');
+        return redirect('student')->with('notif', 'Data Berhasil Masuk');
     }
 
     /**
@@ -61,9 +65,10 @@ class StudentController extends Controller
      * @param  \App\Models\Student  $student
      * @return \Illuminate\Http\Response
      */
+    //untuk mengubah/mengisi button untuk form EDIT
     public function edit(Student $student)
     {
-        //
+        return view('pages.form',['student' => $student]);
     }
 
     /**
@@ -75,7 +80,9 @@ class StudentController extends Controller
      */
     public function update(UpdateStudentRequest $request, Student $student)
     {
-        //
+        $data = $request->all();
+        $student->update($data);
+        return redirect()->route('student.index')->with('notif','berhasil update');
     }
 
     /**
