@@ -1,7 +1,9 @@
 <?php
 
-use  App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\StudentController;
+use Symfony\Component\Routing\RouteCompiler;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,3 +20,19 @@ Route::get('/', [HomeController::class,'home'])->name('home');
 Route::get('/tentang_kami', [HomeController::class,'about'])->name('about');
 Route::get('/layanan', [HomeController::class,'services'])->name('services');
 Route::get('/hubungi', [HomeController::class,'contact'])->name('contact');
+
+//crud student
+//untuk mengeluarkan list data
+// Route::get('/student', [StudentController::class, 'index']);
+// // untuk mengeluarkan form view insert
+// Route::get('/student/create', [StudentController::class, 'create']);
+// // untuk mengeluarkan form view update
+// Route::get('/student/{id}/edit', [StudentController::class, 'edit']);
+// // untuk menyimpan
+// Route::post('/student', [StudentController::class, 'store']);
+// // untuk edit
+// Route::put('/student/{id}', [StudentController::class, 'update']);
+// // untuk delete
+// Route::delete('/student/{id}', [StudentController::class, 'destroy']);
+
+Route::resource('student',StudentController::class);
