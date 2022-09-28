@@ -13,7 +13,7 @@ class StoreMajorRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,8 +23,11 @@ class StoreMajorRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            //
-        ];
+            return [
+                //validasi form input
+                //penggunaan "unique:majors,name" untuk validasi ketika ada nama yang sudah di inputkan
+                'name'=>'required|max:50|unique:majors,name',
+                'description'=>'required',
+            ];
     }
 }

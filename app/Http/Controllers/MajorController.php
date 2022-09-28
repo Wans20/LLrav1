@@ -15,7 +15,11 @@ class MajorController extends Controller
      */
     public function index()
     {
-        //
+        $data = Major::get();
+        return view('pages.major.list',[
+            'data'=>$data,
+            'judul'=>"list major"
+        ]);
     }
 
     /**
@@ -25,7 +29,11 @@ class MajorController extends Controller
      */
     public function create()
     {
-        //
+        $major = new Major();
+        return view('pages.major.form',[
+            'major' => $major,
+            'judul'=>"Form Create Major"
+        ]);
     }
 
     /**
@@ -36,7 +44,10 @@ class MajorController extends Controller
      */
     public function store(StoreMajorRequest $request)
     {
-        //
+         //dd($request->all());
+         $data = $request->all();
+         Major::create($data);
+         return redirect('major')->with('notif', 'Data Berhasil Masuk');
     }
 
     /**
@@ -58,7 +69,10 @@ class MajorController extends Controller
      */
     public function edit(Major $major)
     {
-        //
+        return view('pages.major.form',[
+            'major' => $major,
+            'judul'=>"Form Edit Major"
+        ]);
     }
 
     /**
@@ -70,7 +84,9 @@ class MajorController extends Controller
      */
     public function update(UpdateMajorRequest $request, Major $major)
     {
-        //
+        $data = $request->all();
+        $major->update($data);
+        return redirect()->route('major.index')->with('notif','berhasil update');
     }
 
     /**
@@ -81,6 +97,7 @@ class MajorController extends Controller
      */
     public function destroy(Major $major)
     {
-        //
+        $major->delete();
+        return redirect()->route('major.index')->with('notif','Data Telah Terhapus');
     }
 }

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\MajorController;
 use App\Http\Controllers\StudentController;
 use Symfony\Component\Routing\RouteCompiler;
 
@@ -34,5 +35,8 @@ Route::get('/hubungi', [HomeController::class,'contact'])->name('contact');
 // Route::put('/student/{id}', [StudentController::class, 'update']);
 // // untuk delete
 // Route::delete('/student/{id}', [StudentController::class, 'destroy']);
-
+//cara mudah
 Route::resource('student',StudentController::class);
+
+//crud major
+Route::resource('major',MajorController::class);

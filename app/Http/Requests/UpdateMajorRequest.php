@@ -13,7 +13,7 @@ class UpdateMajorRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,11 @@ class UpdateMajorRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            //validasi form update
+            //penggunaan "unique:majors,name" untuk validasi ketika ada nama yang sudah di inputkan
+            //penggunaan ".$this->major->id" untuk validasi ketika hanya ingin update description
+            'name'=>'required|max:50|unique:majors,name,'.$this->major->id,
+            'description'=>'required',
         ];
     }
 }
