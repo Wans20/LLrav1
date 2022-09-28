@@ -19,8 +19,12 @@ return new class extends Migration
             $table->date('date_birth');
             $table->enum('gender',['male','female']);
             $table->text('address');
-            $table->string('major')->nullable();
-            $table->timestamps();
+            $table->integer('major_id');
+            //$table->string('major')->nullable();
+            $table->timestamps();//column created_at, updated_at
+
+            //relationships
+            //$table->foreign('major_id')->references('id')->on('majors');
         });
     }
 

@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Major;
 use App\Models\Student;
-use App\Http\Requests\StoreStudentRequest;
-use App\Http\Requests\UpdateStudentRequest;
 use Dflydev\DotAccessData\Data;
 use GuzzleHttp\RetryMiddleware;
+use App\Http\Requests\StoreStudentRequest;
+use App\Http\Requests\UpdateStudentRequest;
 
 class StudentController extends Controller
 {
@@ -17,8 +18,8 @@ class StudentController extends Controller
      */
     public function index()
     {
-        $data = Student::get();
-        return view('pages.student.list',['data'=>$data]);
+        $data = Student::with(['major'])->get();
+        return view('pages.student.list',['data'=>$data,'judul'=>"Form Student"]);
     }
 
     /**
@@ -29,7 +30,12 @@ class StudentController extends Controller
     public function create()
     {
         $student = new Student();
-        return view('pages.student.form',['student' => $student]);
+        $majors = Major::all();
+        return view('pages.student.form',
+        ['student' => $student,
+        'judul'=>"Form Edit Student",
+        'majors' => $majors
+        ]);
     }
     
 
@@ -68,7 +74,8 @@ class StudentController extends Controller
     //untuk mengubah/mengisi button untuk form EDIT
     public function edit(Student $student)
     {
-        return view('pages.student.form',['student' => $student]);
+        $majors = Major::all();
+        return view('pages.student.form',['student' => $student,'judul'=>"Form Edit Student",'majors' => $majors]);
     }
 
     /**

@@ -58,7 +58,11 @@ class MajorController extends Controller
      */
     public function show(Major $major)
     {
-        //
+        $data =$major->load(['students']);
+        return view('pages.major.list-student',[
+            "major" => $data,
+            "judul"=>"form Show"
+        ]);
     }
 
     /**

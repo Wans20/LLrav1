@@ -40,11 +40,11 @@
 
     <div class="mb-3">
       <label for="major" class="form-label">Major</label>
-      <select name="major" class="form-select">
+      <select name="major_id" class="form-select">
         <option disabled selected>--- Choose Your Major ---</option>
-        <option value="English" {{ $student->major == 'English' ? 'selected' : ''}}>English</option>
-        <option value="Indonesia" {{ $student->major == 'Indonesia' ? 'selected' : ''}}>Indonesia</option>
-        <option value="Amerika" {{ $student->major == 'Amerika' ? 'selected' : ''}}>Amerika</option>
+        @foreach ($majors as $major)
+          <option value="{{ $major->id }}">{{ $major->name }}</option>
+        @endforeach
       </select>
       @error('major') <div class="text-muted text-danger">{{$message}}</div> @enderror
     </div>

@@ -9,5 +9,9 @@ class Student extends Model
 {
     use HasFactory;
 
-    protected $fillable=['name','gender','date_birth','address','major'];
+    protected $fillable=['name','gender','date_birth','address','major_id'];
+    public function major()
+    {
+        return $this->belongsTo(Major::class,'major_id','id'); 
+    }
 }
