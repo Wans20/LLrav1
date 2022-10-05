@@ -9,11 +9,12 @@
       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 @endif
+<H1>List Student</H1>
 <a href="/student/create" class="btn btn-primary mb-3">Input</a>
 <table class="table table-striped table-hover">
     <thead class="table-dark">
       <tr>
-        <th scope="col">#</th>
+        <th scope="col">No</th>
         <th scope="col">Name</th>
         <th scope="col">Gender</th>
         <th scope="col">Date-Birth</th>
@@ -25,7 +26,11 @@
     <tbody>
         @foreach ($data as $item)
             <tr>
-            <th scope="row">{{ $loop->iteration }}</th>
+            {{-- urutan manual --}}
+            {{-- <th scope="row">{{ $loop->iteration }}</th> --}}
+            
+            {{-- urutan angka sesuai page --}}
+            <th scope="row">{{ ($data->currentPage() - 1) * $data->perPage() + $loop->iteration }}</th>
                 <td>{{ $item->name }}</td>
                 <td>{{ $item->gender == 'female' ? 'Female' : 'Male'}}</td>
                 <td>{{ $item->date_birth }}</td>
@@ -43,5 +48,6 @@
         @endforeach
     </tbody>
   </table>
-
+  {{-- memberu tampilan next privious --}}
+{{ $data->links()}}
 @endsection

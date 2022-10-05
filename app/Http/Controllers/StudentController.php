@@ -18,7 +18,9 @@ class StudentController extends Controller
      */
     public function index()
     {
-        $data = Student::with(['major'])->get();
+        // memeberi batas data yang muncul pada tampilan list
+        $data = Student::with(['major'])->paginate(10);
+        // $data = Student::with(['major'])->get();
         return view('pages.student.list',['data'=>$data,'judul'=>"Form Student"]);
     }
 

@@ -13,7 +13,7 @@
 <table class="table table-striped table-hover">
     <thead class="table-dark">
       <tr>
-        <th scope="col">#</th>
+        <th scope="col">NO</th>
         <th scope="col">Name</th>
         <th scope="col">Description</th>
         <th scope="col">Action</th>
@@ -22,7 +22,11 @@
     <tbody>
         @foreach ($data as $item)
             <tr>
+              {{-- urutan manual --}}
             <th scope="row">{{ $loop->iteration }}</th>
+            
+            {{-- urutan angka sesuai page --}}
+            {{-- <th scope="row">{{ ($data->currentPage() - 1) * $data->perPage() + $loop->iteration }}</th> --}}
                 <td>{{ $item->name }}</td>
                 <td>{{ $item->description }}</td>
                 <td>
