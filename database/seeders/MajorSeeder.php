@@ -2,8 +2,9 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Major;
 use Illuminate\Database\Seeder;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class MajorSeeder extends Seeder
 {
@@ -14,6 +15,19 @@ class MajorSeeder extends Seeder
      */
     public function run()
     {
-        //
+        // menghapus semua data di database
+        Major::truncate();
+        $majors=["ASE","DBM","CDM","OAA"];
+        foreach( $majors as $key => $major){
+            Major::create([
+                "name" => $major,
+                "description" => "Ini jurusan $major",
+            ]);
+        }
+
+        // Major::create([
+        //     "name" => "Sastra",
+        //     "description" => "Buat Buku"
+        // ]);
     }
 }
