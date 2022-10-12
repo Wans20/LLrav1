@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Major;
 use App\Models\Student;
+use Illuminate\Http\Request;
 use Dflydev\DotAccessData\Data;
 use GuzzleHttp\RetryMiddleware;
 use App\Http\Requests\StoreStudentRequest;
@@ -16,12 +17,39 @@ class StudentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $search =$request->input('search');
+        $filter =$request->input('filter');
+        $data =Student::with(['major']);
+
         // memeberi batas data yang muncul pada tampilan list
-        $data = Student::with(['major'])->paginate(10);
-        // $data = Student::with(['major'])->get();
-        return view('pages.student.list',['data'=>$data,'judul'=>"Form Student"]);
+        $data = Student::with(['major']);
+
+        // if ($search) {
+        //     $data->where('name', 'like', "%$search%")
+        //         ->orWhere('address', 'like', "%$search%")
+        //         ->where('majors_id', '=', "$filter");
+        // }
+
+        if ($search) {
+            $data->where(function ($query) use ($search) {
+                $query->where('name', 'like', "%$search%")
+                    ->orWhere('address', 'like', "%$search%");
+            });
+        }
+
+        if ($filter) {
+            $data->where(function ($query) use ($filter) {
+                $query->where('major_id', '=', $filter);
+            });
+        }
+
+        $data = $data->paginate(10);
+        return view('pages.student.list', compact('data'), [
+            'judul' => "List Student",
+            'majors' => Major::get()
+        ]);
     }
 
     /**

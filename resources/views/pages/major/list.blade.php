@@ -9,6 +9,8 @@
       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 @endif
+
+<H1>List Major</H1>
 <a href="/major/create" class="btn btn-primary mb-3">Input</a>
 <table class="table table-striped table-hover">
     <thead class="table-dark">

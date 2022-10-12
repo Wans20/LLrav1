@@ -9,8 +9,28 @@
       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 @endif
+
 <H1>List Student</H1>
 <a href="/student/create" class="btn btn-primary mb-3">Input</a>
+<form class="row g-3" action="{{ route('student.index') }}" method="GET">
+  <div class="col-auto">
+    <select class="form-select" name="filter" id="filter">
+      
+      <option value="">All</option>
+      @foreach ($majors as $major)
+      <option value="{{ $major->id }}" {{ request('filter') == $major->id?'selected':'' }}>{{ $major->name }}</option>
+      @endforeach
+    </select>
+  </div>
+
+  <div class="col-auto">
+    <label for="search" class="visually-hidden"></label>
+    <input type="text" name="search" value="{{ request('search') }}" class="form-control" id="search" placeholder="Search">
+  </div>
+  <div class="col-auto">
+    <button type="submit" class="btn btn-primary mb-3">Search</button>
+  </div>
+</form>
 <table class="table table-striped table-hover">
     <thead class="table-dark">
       <tr>
